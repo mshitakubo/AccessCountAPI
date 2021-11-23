@@ -15,7 +15,7 @@ module.exports = {
 
         if(!email_valido){
             const error = {
-                'mensagem' : 'E-mail inválido.'
+                mensagem : 'E-mail inválido.'
             }
             return res.status(401).send(error);
 
@@ -39,7 +39,7 @@ module.exports = {
                     key_count: count.key
                 })
             }catch(e){
-                res.status(500).send({"mensagem":"Indisponibilidade temporária do servidor"});
+                res.status(500).send({mensagem:"Indisponibilidade temporária do servidor"});
             }
 
             const token = jwt.sign({
@@ -60,7 +60,7 @@ module.exports = {
 
         } else{
             const error = {
-                'mensagem' : 'E-mail já cadastrado na base de dados.'
+                mensagem : 'E-mail já cadastrado na base de dados.'
             }
             res.status(401).send(error);
         }
@@ -90,7 +90,7 @@ module.exports = {
 
         }catch(e){
 
-            res.status(400).send({"mensagem":"E-mail não localizado na base de dados."});
+            res.status(401).send({mensagem:"E-mail não localizado na base de dados."});
 
         }
 
@@ -111,7 +111,7 @@ module.exports = {
             }
         })
 
-        if(user == null){
+        if(user == null || req.usuario.email !== req.body.email){
 
             return res.status(401).send({mensagem:'Falha na autenticação'})
 
@@ -146,14 +146,14 @@ module.exports = {
             var response = {
                 id: user.id,
                 email: user.email,
-                quantidade_acessos : count.value
+                quantidade_acessos : count.data.value
             }
                 
             res.status(200).send(response);
 
         }catch(e){
 
-            res.status(400).send({"mensagem":"Usuário não localizado."});
+            res.status(400).send({mensagem:"Usuário não localizado."});
 
         }
 
@@ -174,7 +174,7 @@ module.exports = {
             }
         })
 
-        if(user == null){
+        if(user == null || req.usuario.email !== req.body.email){
 
             return res.status(401).send({mensagem:'Falha na autenticação'})
 
