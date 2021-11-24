@@ -1,6 +1,6 @@
 const config = {
-    username: 'root',
-    password: 'Entrada.190119',
+    username: process.env.USERNAMEDB,
+    password: process.env.PASSWORDDB,
     database: 'desafio_count',
     host: 'localhost',
     dialect: 'mysql'

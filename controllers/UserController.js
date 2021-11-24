@@ -45,7 +45,7 @@ module.exports = {
             const token = jwt.sign({
                 id_usuario: user.dataValues.id,
                 email: email
-            }, 'passwordWebToken',
+            }, process.env.WEBTOKEN,
             {
                 expiresIn: '90 days'
             })
@@ -143,6 +143,14 @@ module.exports = {
             var key_count = user.dataValues.key_count;
             var count = await apiCount.get_valeu(key_count);
 
+            if(count == undefined){
+                count = {
+                    data : {
+                        value : 0,
+                    }
+                }
+            }
+
             var response = {
                 id: user.id,
                 email: user.email,
@@ -186,7 +194,7 @@ module.exports = {
             const token = jwt.sign({
                 id_usuario: user.dataValues.id,
                 email: email
-            }, 'passwordWebToken',
+            }, process.env.WEBTOKEN,
             {
                 expiresIn: '90 days'
             })

@@ -63,9 +63,8 @@ module.exports = {
             result = (response);
         })
         .catch(function (error) {
-            result = {
-                "value": 0
-              }
+            result = undefined;
+          
         });
 
         return result
