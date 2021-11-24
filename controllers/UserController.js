@@ -13,9 +13,9 @@ module.exports = {
 
         const email_valido = validaEmail.validateEmail(email);
 
-        if(!email_valido){
+        if(!email_valido || password == undefined){
             const error = {
-                mensagem : 'E-mail inválido.'
+                mensagem : 'E-mail inválido e/ou password não informado.'
             }
             return res.status(401).send(error);
 
@@ -90,7 +90,7 @@ module.exports = {
 
         }catch(e){
 
-            res.status(401).send({mensagem:"E-mail não localizado na base de dados."});
+            res.status(400).send({mensagem:"E-mail não localizado na base de dados"});
 
         }
 
@@ -111,7 +111,7 @@ module.exports = {
             }
         })
 
-        if(user == null || req.usuario.email !== req.body.email){
+        if(user == null || req.usuario.email !== req.body.email || password == undefined){
 
             return res.status(401).send({mensagem:'Falha na autenticação'})
 
@@ -182,7 +182,7 @@ module.exports = {
             }
         })
 
-        if(user == null || req.usuario.email !== req.body.email){
+        if(user == null || req.usuario.email !== req.body.email || password == undefined){
 
             return res.status(401).send({mensagem:'Falha na autenticação'})
 
