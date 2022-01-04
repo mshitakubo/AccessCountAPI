@@ -1,0 +1,3 @@
+FROM mysql:8.0
+WORKDIR /var/www
+EXPOSE 3307

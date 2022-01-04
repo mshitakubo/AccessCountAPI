@@ -1,0 +1,34 @@
+version: '3'
+services:
+  mysql-db:
+    build:
+      dockerfile: ./docker/mysql-db.dockerfile
+      context: .
+    image: mysql:8.0
+    container_name: mysql-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=desafio_count
+    volumes:
+      - C:\Users\nostr\Desktop\mysql
+    ports:
+      - "3307:3306"
+    networks:
+      - minha-rede
+
+  node:
+    build:
+      dockerfile: ./docker/node.dockerfile
+      context: .
+    image: nostressmeister/node
+    container_name: node
+    ports:
+      - "3444:3111"
+    networks:
+      - minha-rede
+    depends_on:
+      - mysql-db
+
+networks:
+  minha-rede:
+    driver: bridge
